@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 
 import io.tarric1.quarkus.confignlog.model.Message;
@@ -20,15 +20,14 @@ public class TestResource {
     @Inject
     Logger logger;
 
-    @ConfigProperty(name = "salutation", defaultValue = "Hello")
-    String salutation;
-
     @GET
     @Path("{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response read(@PathParam("name") String name) {
         logger.infov("Test!");
-        logger.debugv("name = {0}", name);
+        
+        String salutation = ConfigProvider.getConfig().getValue("salutation", String.class);
+        logger.debugv("salutation = {0}; name = {1}", salutation, name);
 
         return Response.ok(new Message(String.format("%s, %s!", salutation, name))).build();
     }

@@ -1,65 +1,62 @@
 <?xml version="1.0"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>io.tarric1.quarkus</groupId>
-	<artifactId>confignlog</artifactId>
-	<version>1.0.0</version>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>11</java.version>
-		<maven.compiler.source>${java.version}</maven.compiler.source>
-		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<quarkus.version>1.12.1.Final</quarkus.version>
-		<quarkus.package.uber-jar>true</quarkus.package.uber-jar>
-		<!--
-		<quarkus.package.type>native</quarkus.package.type>
-		<quarkus.native.container-build>true</quarkus.native.container-build>
-		<quarkus.container-image.build>true</quarkus.container-image.build>
-		<quarkus.native.container-runtime>docker</quarkus.native.container-runtime>
-		-->
-	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>io.quarkus</groupId>
-				<artifactId>quarkus-bom</artifactId>
-				<version>${quarkus.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
-	<dependencies>
-		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-resteasy-jsonb</artifactId>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>io.quarkus</groupId>
-				<artifactId>quarkus-maven-plugin</artifactId>
-				<version>${quarkus.version}</version>
-				<extensions>true</extensions>
-				<executions>
-					<execution>
-						<goals>
-							<goal>build</goal>
-							<goal>generate-code</goal>
-							<goal>generate-code-tests</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>io.tarric1.quarkus</groupId>
+  <artifactId>confignlog</artifactId>
+  <version>1.0.0</version>
+  <properties>
+    <java.version>11</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    
+    <quarkus.container-image.build>true</quarkus.container-image.build>
+    <quarkus.container-image.builder>jib</quarkus.container-image.builder>
+    <quarkus.container-image.group>${project.groupId}</quarkus.container-image.group>
+    <quarkus.container-image.name>${project.artifactId}</quarkus.container-image.name>
+    <quarkus.container-image.push>false</quarkus.container-image.push>
+    <!-- <quarkus.jib.base-jvm-image>gcr.io/distroless/java:11</quarkus.jib.base-jvm-image> -->
+    <!-- <quarkus.jib.base-jvm-image>fabric8/java-alpine-openjdk11-jre</quarkus.jib.base-jvm-image> -->
+    
+    <quarkus.version>1.12.1.Final</quarkus.version>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-bom</artifactId>
+        <version>${quarkus.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-resteasy-jsonb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-container-image-jib</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-maven-plugin</artifactId>
+        <version>${quarkus.version}</version>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
